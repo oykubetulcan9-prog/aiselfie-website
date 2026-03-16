@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Selfie - Create Magic with AI</title>
+    <meta name="description" content="Transform your selfies into masterpieces with AI. Create realistic photos with celebrities, anime styles, and more.">
+    
+    <!-- Google Analytics (ÖNEMLİ: G-XXXXXXXXXX yerine kendi Ölçüm Kimliğinizi yazın) -->
+    <!-- Google Analytics hesabınızdan alacağınız kodu buraya yapıştırmanız gerekecek.
+         Şimdilik pasif durumda, ID'yi değiştirdiğinizde çalışmaya başlar. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K9HGGR8LL2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // G-XXXXXXXXXX yerine kendi ID'nizi yazın
+      gtag('config', 'G-K9HGGR8LL2');
+
+      // İndirme butonlarını takip etme fonksiyonu
+      function trackDownload(platform) {
+          gtag('event', 'click', {
+              'event_category': 'App Download',
+              'event_label': platform,
+              'transport_type': 'beacon'
+          });
+          console.log('Download tracked: ' + platform);
+      }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#8b5cf6',
+                        dark: '#1f2937',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(to right, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-pattern {
+            background-color: #f9fafb;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236366f1' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .phone-mockup {
+            border: 8px solid #1f2937;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-600 bg-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-4">
+                    <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+                        AI Selfie
+                    </span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-gray-500 hover:text-primary transition" data-i18n="nav_features">Features</a>
+                    <a href="#how-it-works" class="text-gray-500 hover:text-primary transition" data-i18n="nav_how_it_works">How it Works</a>
+                    <a href="#styles" class="text-gray-500 hover:text-primary transition" data-i18n="nav_styles">Styles</a>
+                    
+                    <!-- Language Selector -->
+                    <div class="relative">
+                        <select id="languageSelector" class="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-lg focus:ring-primary focus:border-primary block p-2">
+                            <option value="en">🇺🇸 English</option>
+                            <option value="tr">🇹🇷 Türkçe</option>
+                            <option value="de">🇩🇪 Deutsch</option>
+                            <option value="fr">🇫🇷 Français</option>
+                            <option value="es">🇪🇸 Español</option>
+                            <option value="it">🇮🇹 Italiano</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <a href="#download" class="bg-primary hover:bg-secondary text-white px-6 py-2.5 rounded-full font-medium transition shadow-lg shadow-primary/30" data-i18n="nav_download">
+                        Download App
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 lg:pt-48 lg:pb-32 hero-pattern overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left">
+                    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 mb-6 leading-tight">
+                        <span data-i18n="hero_title_1">Create Magic with</span> <br>
+                        <span class="gradient-text" data-i18n="hero_title_2">Artificial Intelligence</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-500 mb-8 max-w-2xl mx-auto lg:mx-0" data-i18n="hero_subtitle">
+                        Transform your selfies into masterpieces. Pose with celebrities, turn into anime characters, or become a watercolor painting in seconds.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="https://apps.apple.com/tr/app/ai-selfie-with-celebrity/id6755526254?l=tr" onclick="trackDownload('AppStore_Hero')" class="flex items-center justify-center gap-2 bg-black text-white px-8 py-3.5 rounded-xl hover:bg-gray-800 transition shadow-xl">
+                            <i class="fab fa-apple text-2xl"></i>
+                            <div class="text-left">
+                                <div class="text-xs" data-i18n="btn_download_on">Download on the</div>
+                                <div class="text-lg font-bold leading-none">App Store</div>
+                            </div>
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.meku.selfie.ai.celebrity" onclick="trackDownload('GooglePlay_Hero')" class="flex items-center justify-center gap-2 bg-black text-white px-8 py-3.5 rounded-xl hover:bg-gray-800 transition shadow-xl">
+                            <i class="fab fa-google-play text-xl"></i>
+                            <div class="text-left">
+                                <div class="text-xs" data-i18n="btn_get_it_on">GET IT ON</div>
+                                <div class="text-lg font-bold leading-none">Google Play</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="mt-8 flex items-center justify-center lg:justify-start gap-2 text-sm text-gray-500">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <span data-i18n="hero_users">Loved by 10k+ users</span>
+                    </div>
+
+                    <!-- QR Code Section (Desktop Only) -->
+                    <div class="hidden lg:flex items-center gap-4 mt-8 p-3 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200 w-max shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="bg-white p-2 rounded-xl shadow-inner border border-gray-100">
+                            <!-- Dynamic QR Code pointing to app with UTM parameters -->
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&color=1f2937&data=https://aiselfiewithcelebrity.app?utm_source=landing_page%26utm_medium=qr_code%26utm_campaign=hero_scan" 
+                                 alt="Scan to Download" 
+                                 class="w-20 h-20 mix-blend-multiply"
+                            >
+                        </div>
+                        <div class="text-left pr-4">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="flex h-2 w-2 relative">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                                </span>
+                                <p class="font-bold text-gray-900 text-sm" data-i18n="qr_title">Scan to Install</p>
+                            </div>
+                            <p class="text-gray-500 text-xs leading-relaxed max-w-[140px]" data-i18n="qr_desc">Point your camera to download instantly.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative lg:block flex justify-center">
+                    <div class="phone-mockup w-[300px] h-[600px] bg-gray-100 relative mx-auto shadow-2xl overflow-hidden">
+                        <!-- App Screenshot -->
+                        <img src="assets/Adsiz.png" 
+                             alt="AI Selfie App Screenshot - Celebrity Photo" 
+                             class="w-full h-full object-cover"
+                        >
+                    </div>
+                    
+                    <!-- Decorative Elements -->
+                    <div class="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-full blur-3xl"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-primary font-semibold tracking-wide uppercase text-sm" data-i18n="features_tag">Features</h2>
+                <h3 class="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl" data-i18n="features_title">Everything you need</h3>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto" data-i18n="features_subtitle">
+                    Advanced AI technology meets simple user experience.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="p-8 bg-gray-50 rounded-2xl hover:shadow-lg transition duration-300 border border-gray-100">
+                    <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-wand-magic-sparkles text-primary text-xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3" data-i18n="feat_1_title">AI Powered Magic</h4>
+                    <p class="text-gray-500" data-i18n="feat_1_desc">
+                        Create realistic photos with celebrities or friends using state-of-the-art AI technology.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="p-8 bg-gray-50 rounded-2xl hover:shadow-lg transition duration-300 border border-gray-100">
+                    <div class="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-palette text-secondary text-xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3" data-i18n="feat_2_title">Unique Styles</h4>
+                    <p class="text-gray-500" data-i18n="feat_2_desc">
+                        Choose from various artistic styles: Anime, Cartoon, Oil Painting, Sketch, and more.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="p-8 bg-gray-50 rounded-2xl hover:shadow-lg transition duration-300 border border-gray-100">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-bolt text-blue-600 text-xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3" data-i18n="feat_3_title">Fast & Easy</h4>
+                    <p class="text-gray-500" data-i18n="feat_3_desc">
+                        Get your results in seconds. Save to gallery or share directly to social media.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Styles Showcase -->
+    <section id="styles" class="py-20 bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-primary font-semibold tracking-wide uppercase text-sm" data-i18n="styles_tag">Styles</h2>
+                <h3 class="mt-2 text-3xl font-extrabold text-white sm:text-4xl" data-i18n="styles_title">Unleash Your Creativity</h3>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="group relative overflow-hidden rounded-2xl aspect-square bg-gray-800">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span class="text-gray-500">Anime Style</span>
+                    </div>
+                    <div class="absolute bottom-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent">
+                        <p class="font-medium" data-i18n="style_anime">Anime</p>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-2xl aspect-square bg-gray-800">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span class="text-gray-500">Realistic</span>
+                    </div>
+                    <div class="absolute bottom-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent">
+                        <p class="font-medium" data-i18n="style_realistic">Realistic</p>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-2xl aspect-square bg-gray-800">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span class="text-gray-500">Oil Paint</span>
+                    </div>
+                    <div class="absolute bottom-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent">
+                        <p class="font-medium" data-i18n="style_oil">Oil Painting</p>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-2xl aspect-square bg-gray-800">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span class="text-gray-500">Cartoon</span>
+                    </div>
+                    <div class="absolute bottom-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent">
+                        <p class="font-medium" data-i18n="style_cartoon">Cartoon</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="py-20 bg-primary/5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8" data-i18n="download_title">Ready to transform your photos?</h2>
+            <p class="text-xl text-gray-500 mb-10" data-i18n="download_subtitle">
+                Join thousands of users creating amazing AI art. Download now and get started for free.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="https://apps.apple.com/tr/app/ai-selfie-with-celebrity/id6755526254?l=tr" onclick="trackDownload('AppStore_Footer')" class="flex items-center justify-center gap-2 bg-black text-white px-8 py-4 rounded-xl hover:bg-gray-800 transition shadow-xl transform hover:-translate-y-1">
+                    <i class="fab fa-apple text-3xl"></i>
+                    <div class="text-left">
+                        <div class="text-xs" data-i18n="btn_download_on">Download on the</div>
+                        <div class="text-xl font-bold leading-none">App Store</div>
+                    </div>
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.meku.selfie.ai.celebrity" onclick="trackDownload('GooglePlay_Footer')" class="flex items-center justify-center gap-2 bg-black text-white px-8 py-4 rounded-xl hover:bg-gray-800 transition shadow-xl transform hover:-translate-y-1">
+                    <i class="fab fa-google-play text-2xl"></i>
+                    <div class="text-left">
+                        <div class="text-xs" data-i18n="btn_get_it_on">GET IT ON</div>
+                        <div class="text-xl font-bold leading-none">Google Play</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-100 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary mb-4 block">
+                        AI Selfie
+                    </span>
+                    <p class="text-gray-500 max-w-xs" data-i18n="footer_desc">
+                        The easiest way to create professional and artistic AI selfies. Powered by advanced generative AI technology.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-4" data-i18n="footer_legal">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="privacy.html" class="text-gray-500 hover:text-primary transition" data-i18n="footer_privacy">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="text-gray-500 hover:text-primary transition" data-i18n="footer_terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-4" data-i18n="footer_contact">Contact</h4>
+                    <ul class="space-y-2">
+                        <li><a href="mailto:support@aiselfiewithcelebrity.app" class="text-gray-500 hover:text-primary transition">Support</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-primary transition">Twitter</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-primary transition">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-100 pt-8 text-center text-gray-400 text-sm">
+                &copy; 2026 AI Selfie App. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sticky Mobile Download Button -->
+    <div class="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-md border-t border-gray-200 p-4 md:hidden z-50 pb-8">
+        <div class="grid grid-cols-2 gap-3">
+            <a href="https://apps.apple.com/tr/app/ai-selfie-with-celebrity/id6755526254?l=tr" onclick="trackDownload('AppStore_Sticky')" class="flex items-center justify-center gap-2 bg-black text-white w-full py-3.5 rounded-xl font-bold shadow-lg hover:bg-gray-800 transition transform active:scale-95">
+                <i class="fab fa-apple text-xl"></i>
+                <div class="text-left leading-none">
+                    <div class="text-[9px] opacity-80 uppercase tracking-wide" data-i18n="btn_download_on">Download on</div>
+                    <div class="text-sm font-bold mt-0.5">App Store</div>
+                </div>
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.meku.selfie.ai.celebrity" onclick="trackDownload('GooglePlay_Sticky')" class="flex items-center justify-center gap-2 bg-black text-white w-full py-3.5 rounded-xl font-bold shadow-lg hover:bg-gray-800 transition transform active:scale-95">
+                <i class="fab fa-google-play text-lg"></i>
+                <div class="text-left leading-none">
+                    <div class="text-[9px] opacity-80 uppercase tracking-wide" data-i18n="btn_get_it_on">GET IT ON</div>
+                    <div class="text-sm font-bold mt-0.5">Google Play</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Localization Script -->
+    <script>
+        const translations = {
+            en: {
+                nav_features: "Features",
+                nav_how_it_works: "How it Works",
+                nav_styles: "Styles",
+                nav_download: "Download App",
+                hero_title_1: "Create Magic with",
+                hero_title_2: "Artificial Intelligence",
+                hero_subtitle: "Transform your selfies into masterpieces. Pose with celebrities, turn into anime characters, or become a watercolor painting in seconds.",
+                btn_download_on: "Download on the",
+                btn_get_it_on: "GET IT ON",
+                hero_users: "Loved by 10k+ users",
+                qr_title: "Scan to Install",
+                qr_desc: "Point your camera to download instantly.",
+                features_tag: "FEATURES",
+                features_title: "Everything you need",
+                features_subtitle: "Advanced AI technology meets simple user experience.",
+                feat_1_title: "AI Powered Magic",
+                feat_1_desc: "Create realistic photos with celebrities or friends using state-of-the-art AI technology.",
+                feat_2_title: "Unique Styles",
+                feat_2_desc: "Choose from various artistic styles: Anime, Cartoon, Oil Painting, Sketch, and more.",
+                feat_3_title: "Fast & Easy",
+                feat_3_desc: "Get your results in seconds. Save to gallery or share directly to social media.",
+                styles_tag: "STYLES",
+                styles_title: "Unleash Your Creativity",
+                style_anime: "Anime",
+                style_realistic: "Realistic",
+                style_oil: "Oil Painting",
+                style_cartoon: "Cartoon",
+                download_title: "Ready to transform your photos?",
+                download_subtitle: "Join thousands of users creating amazing AI art. Download now and get started for free.",
+                footer_desc: "The easiest way to create professional and artistic AI selfies. Powered by advanced generative AI technology.",
+                footer_legal: "Legal",
+                footer_privacy: "Privacy Policy",
+                footer_terms: "Terms of Service",
+                footer_contact: "Contact"
+            },
+            tr: {
+                nav_features: "Özellikler",
+                nav_how_it_works: "Nasıl Çalışır",
+                nav_styles: "Stiller",
+                nav_download: "Uygulamayı İndir",
+                hero_title_1: "Yapay Zeka ile",
+                hero_title_2: "Sihir Yaratın",
+                hero_subtitle: "Selfie'lerinizi şaheserlere dönüştürün. Ünlülerle poz verin, anime karakterine dönüşün veya saniyeler içinde bir suluboya tablosu olun.",
+                btn_download_on: "İndirin",
+                btn_get_it_on: "EDİNİN",
+                hero_users: "10b+ kullanıcı tarafından seviliyor",
+                qr_title: "Yüklemek için Tara",
+                qr_desc: "Hemen indirmek için kameranızı doğrultun.",
+                features_tag: "ÖZELLİKLER",
+                features_title: "İhtiyacınız olan her şey",
+                features_subtitle: "Gelişmiş yapay zeka teknolojisi, basit kullanıcı deneyimiyle buluşuyor.",
+                feat_1_title: "Yapay Zeka Sihri",
+                feat_1_desc: "En son yapay zeka teknolojisini kullanarak ünlülerle veya arkadaşlarınızla gerçekçi fotoğraflar oluşturun.",
+                feat_2_title: "Eşsiz Stiller",
+                feat_2_desc: "Çeşitli sanatsal stillerden birini seçin: Anime, Karikatür, Yağlı Boya, Eskiz ve daha fazlası.",
+                feat_3_title: "Hızlı & Kolay",
+                feat_3_desc: "Sonuçları saniyeler içinde alın. Galeriye kaydedin veya doğrudan sosyal medyada paylaşın.",
+                styles_tag: "STİLLER",
+                styles_title: "Yaratıcılığını Ortaya Çıkar",
+                style_anime: "Anime",
+                style_realistic: "Gerçekçi",
+                style_oil: "Yağlı Boya",
+                style_cartoon: "Karikatür",
+                download_title: "Fotoğraflarınızı dönüştürmeye hazır mısınız?",
+                download_subtitle: "İnanılmaz AI sanatı yaratan binlerce kullanıcıya katılın. Şimdi indirin ve ücretsiz başlayın.",
+                footer_desc: "Profesyonel ve sanatsal yapay zeka selfie'leri oluşturmanın en kolay yolu. Gelişmiş üretken yapay zeka teknolojisi ile güçlendirilmiştir.",
+                footer_legal: "Yasal",
+                footer_privacy: "Gizlilik Politikası",
+                footer_terms: "Kullanım Koşulları",
+                footer_contact: "İletişim"
+            },
+            de: {
+                nav_features: "Funktionen",
+                nav_how_it_works: "Wie es funktioniert",
+                nav_styles: "Stile",
+                nav_download: "App herunterladen",
+                hero_title_1: "Erschaffe Magie mit",
+                hero_title_2: "Künstlicher Intelligenz",
+                hero_subtitle: "Verwandle deine Selfies in Meisterwerke. Posiere mit Prominenten, werde zum Anime-Charakter oder zum Aquarellgemälde.",
+                btn_download_on: "Laden im",
+                btn_get_it_on: "JETZT BEI",
+                hero_users: "Von 10k+ Nutzern geliebt",
+                qr_title: "Zum Installieren scannen",
+                qr_desc: "Kamera ausrichten zum Download.",
+                features_tag: "FUNKTIONEN",
+                features_title: "Alles was du brauchst",
+                features_subtitle: "Fortschrittliche KI-Technologie trifft auf einfache Bedienung.",
+                feat_1_title: "KI-Magie",
+                feat_1_desc: "Erstelle realistische Fotos mit Prominenten oder Freunden mit modernster KI.",
+                feat_2_title: "Einzigartige Stile",
+                feat_2_desc: "Wähle aus verschiedenen Stilen: Anime, Cartoon, Ölgemälde, Skizze und mehr.",
+                feat_3_title: "Schnell & Einfach",
+                feat_3_desc: "Ergebnisse in Sekunden. In Galerie speichern oder direkt teilen.",
+                styles_tag: "STILE",
+                styles_title: "Entfessele deine Kreativität",
+                style_anime: "Anime",
+                style_realistic: "Realistisch",
+                style_oil: "Ölgemälde",
+                style_cartoon: "Cartoon",
+                download_title: "Bereit für die Verwandlung?",
+                download_subtitle: "Schließe dich Tausenden von Nutzern an. Jetzt herunterladen und kostenlos starten.",
+                footer_desc: "Der einfachste Weg zu professionellen KI-Selfies.",
+                footer_legal: "Rechtliches",
+                footer_privacy: "Datenschutz",
+                footer_terms: "Nutzungsbedingungen",
+                footer_contact: "Kontakt"
+            },
+             fr: {
+                nav_features: "Fonctionnalités",
+                nav_how_it_works: "Comment ça marche",
+                nav_styles: "Styles",
+                nav_download: "Télécharger l'app",
+                hero_title_1: "Créez de la magie avec",
+                hero_title_2: "l'Intelligence Artificielle",
+                hero_subtitle: "Transformez vos selfies en chefs-d'œuvre. Posez avec des célébrités, devenez un personnage d'anime ou une peinture à l'aquarelle.",
+                btn_download_on: "Télécharger dans",
+                btn_get_it_on: "DISPONIBLE SUR",
+                hero_users: "Aimé par 10k+ utilisateurs",
+                qr_title: "Scanner pour installer",
+                qr_desc: "Pointez votre caméra pour télécharger.",
+                features_tag: "FONCTIONNALITÉS",
+                features_title: "Tout ce dont vous avez besoin",
+                features_subtitle: "La technologie IA avancée rencontre une expérience utilisateur simple.",
+                feat_1_title: "Magia de l'IA",
+                feat_1_desc: "Créez des photos réalistes avec des célébrités grâce à une IA de pointe.",
+                feat_2_title: "Styles uniques",
+                feat_2_desc: "Choisissez parmi divers styles : Anime, Cartoon, Peinture à l'huile, etc.",
+                feat_3_title: "Rapide & Facile",
+                feat_3_desc: "Résultats en quelques secondes. Enregistrez ou partagez directement.",
+                styles_tag: "STYLES",
+                styles_title: "Libérez votre créativité",
+                style_anime: "Anime",
+                style_realistic: "Réaliste",
+                style_oil: "Peinture à l'huile",
+                style_cartoon: "Cartoon",
+                download_title: "Prêt à transformer vos photos ?",
+                download_subtitle: "Rejoignez des milliers d'utilisateurs. Téléchargez maintenant gratuitement.",
+                footer_desc: "Le moyen le plus simple de créer des selfies IA artistiques.",
+                footer_legal: "Légal",
+                footer_privacy: "Politique de confidentialité",
+                footer_terms: "Conditions d'utilisation",
+                footer_contact: "Contact"
+            },
+            es: {
+                nav_features: "Características",
+                nav_how_it_works: "Cómo funciona",
+                nav_styles: "Estilos",
+                nav_download: "Descargar App",
+                hero_title_1: "Crea magia con",
+                hero_title_2: "Inteligencia Artificial",
+                hero_subtitle: "Transforma tus selfies en obras maestras. Posa con celebridades, conviértete en anime o pintura de acuarela.",
+                btn_download_on: "Consíguelo en el",
+                btn_get_it_on: "DISPONIBLE EN",
+                hero_users: "Amado por 10k+ usuarios",
+                qr_title: "Escanear para instalar",
+                qr_desc: "Apunta tu cámara para descargar.",
+                features_tag: "CARACTERÍSTICAS",
+                features_title: "Todo lo que necesitas",
+                features_subtitle: "Tecnología de IA avanzada con una experiencia simple.",
+                feat_1_title: "Magia de IA",
+                feat_1_desc: "Crea fotos realistas con celebridades usando tecnología de punta.",
+                feat_2_title: "Estilos únicos",
+                feat_2_desc: "Elige entre varios estilos: Anime, Caricatura, Óleo, Boceto y más.",
+                feat_3_title: "Rápido y Fácil",
+                feat_3_desc: "Resultados en segundos. Guarda o comparte directamente.",
+                styles_tag: "ESTILOS",
+                styles_title: "Libera tu creatividad",
+                style_anime: "Anime",
+                style_realistic: "Realista",
+                style_oil: "Pintura al óleo",
+                style_cartoon: "Caricatura",
+                download_title: "¿Listo para transformar tus fotos?",
+                download_subtitle: "Únete a miles de usuarios. Descarga ahora gratis.",
+                footer_desc: "La forma más fácil de crear selfies artísticas con IA.",
+                footer_legal: "Legal",
+                footer_privacy: "Privacidad",
+                footer_terms: "Términos",
+                footer_contact: "Contacto"
+            },
+            it: {
+                nav_features: "Funzionalità",
+                nav_how_it_works: "Come funziona",
+                nav_styles: "Stili",
+                nav_download: "Scarica App",
+                hero_title_1: "Crea Magia con",
+                hero_title_2: "l'Intelligenza Artificiale",
+                hero_subtitle: "Trasforma i tuoi selfie in capolavori. Posa con celebrità, diventa un personaggio anime o un dipinto ad acquerello.",
+                btn_download_on: "Scarica su",
+                btn_get_it_on: "DISPONIBILE SU",
+                hero_users: "Amato da 10k+ utenti",
+                qr_title: "Scansiona per installare",
+                qr_desc: "Inquadra per scaricare subito.",
+                features_tag: "FUNZIONALITÀ",
+                features_title: "Tutto ciò che ti serve",
+                features_subtitle: "La tecnologia AI avanzata incontra un'esperienza utente semplice.",
+                feat_1_title: "Magia AI",
+                feat_1_desc: "Crea foto realistiche con celebrità o amici utilizzando la tecnologia AI all'avanguardia.",
+                feat_2_title: "Stili Unici",
+                feat_2_desc: "Scegli tra vari stili artistici: Anime, Cartone animato, Pittura ad olio, Schizzo e altro.",
+                feat_3_title: "Veloce & Facile",
+                feat_3_desc: "Ottieni i tuoi risultati in pochi secondi. Salva nella galleria o condividi direttamente sui social.",
+                styles_tag: "STILI",
+                styles_title: "Libera la tua creatività",
+                style_anime: "Anime",
+                style_realistic: "Realistico",
+                style_oil: "Pintura ad olio",
+                style_cartoon: "Cartone animato",
+                download_title: "Pronto a trasformare le tue foto?",
+                download_subtitle: "Unisciti a migliaia di utenti. Scarica ora e inizia gratis.",
+                footer_desc: "Il modo più semplice per creare selfie AI professionali e artistici.",
+                footer_legal: "Legale",
+                footer_privacy: "Privacy Policy",
+                footer_terms: "Termini di Servizio",
+                footer_contact: "Contatti"
+            }
+        };
+
+        const languageSelector = document.getElementById('languageSelector');
+
+        function updateContent(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            // Update selected option in dropdown
+            languageSelector.value = lang;
+            // Save preference
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Initialize language
+        function initLanguage() {
+            // Check local storage first
+            const storedLang = localStorage.getItem('preferredLanguage');
+            if (storedLang && translations[storedLang]) {
+                updateContent(storedLang);
+                return;
+            }
+
+            // Check browser language
+            const browserLang = navigator.language.split('-')[0];
+            if (translations[browserLang]) {
+                updateContent(browserLang);
+            } else {
+                updateContent('en'); // Default to English
+            }
+        }
+
+        // Event Listener
+        languageSelector.addEventListener('change', (e) => {
+            updateContent(e.target.value);
+        });
+
+        // Run on load
+        document.addEventListener('DOMContentLoaded', initLanguage);
+    </script>
+
+</body>
+</html>
